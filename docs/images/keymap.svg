@@ -1,0 +1,235 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1596 661" width="1596" height="661" font-family="Inter, -apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+<style>
+.bg{fill:#f6f3ee}.case{fill:#e4ddcf;stroke:#cfc6b4;stroke-width:2}.cap{fill:#fdfcfa;stroke:#d8d2c6;stroke-width:1.5}
+.mod{fill:#2a2b30;stroke:#2a2b30}.acc{fill:#e5532a;stroke:#e5532a}.t{fill:#1d1d1f;font-weight:600;text-anchor:middle;dominant-baseline:central}
+.mod+.t,.acc+.t{fill:#fff}.n{fill:#3f6b85;font-size:13px;font-weight:600}.s{fill:#c8431f;font-size:13px;font-weight:600;text-anchor:end}
+.mod~.n,.mod~.s{fill:#c9cbd0}.acc~.n,.acc~.s{fill:#fff}.oled{fill:#101114}.pad{fill:#2a2b30}
+.lg{font-size:17px;fill:#55555a}.lgb{font-size:17px;font-weight:700}
+</style>
+<rect class="bg" width="1596" height="661" rx="28"/>
+<path class="case" d="M75.7,353.9 L63.9,349.3 L58.9,338.4 L58.9,105.7 L62.3,95.2 L68.1,90.6 L75.3,88.9 L204.2,88.9 L213.5,84.7 L221.0,73.8 L229.0,69.6 L288.6,68.7 L294.5,67.1 L304.2,60.3 L310.5,58.7 L394.1,59.1 L412.1,68.3 L473.9,68.7 L494.0,78.8 L644.0,78.8 L652.8,81.3 L658.2,86.8 L660.8,94.4 L661.6,254.8 L668.3,263.6 L692.7,272.4 L709.9,285.5 L721.7,303.9 L726.7,325.4 L725.4,341.3 L720.0,356.4 L711.2,369.5 L699.4,380.4 L687.6,386.7 L675.0,390.5 L659.9,391.3 L638.5,387.9 L628.4,393.0 L588.1,473.6 L582.2,479.5 L574.7,482.0 L566.3,480.3 L495.7,445.9 L481.4,437.1 L439.8,428.3 L355.4,427.8 L347.4,425.7 L342.0,420.7 L339.0,413.1 L338.6,346.8 L334.0,338.4 L326.0,333.8 L257.1,334.2 L248.7,338.8 L239.9,350.6 L230.7,353.9 L75.7,353.9 Z"/>
+<rect class="oled" x="584.2" y="140.1" width="35.3" height="109.2" rx="3"/>
+<g transform="translate(111.4,141.4) rotate(-0.0)">
+<rect class="cap mod" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="20">Tab</text>
+</g>
+<g transform="translate(111.4,221.4) rotate(-0.0)">
+<rect class="cap mod" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="20">Ctrl</text>
+</g>
+<g transform="translate(111.4,301.4) rotate(-0.0)">
+<rect class="cap mod" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="20">Shift</text>
+</g>
+<g transform="translate(191.4,141.4) rotate(-0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">Q</text>
+<text class="n" x="-27.5" y="26.5">1</text>
+<text class="s" x="27.5" y="26.5">!</text>
+</g>
+<g transform="translate(191.4,221.4) rotate(-0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">A</text>
+</g>
+<g transform="translate(191.4,301.4) rotate(-0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">Z</text>
+</g>
+<g transform="translate(271.4,121.4) rotate(-0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">W</text>
+<text class="n" x="-27.5" y="26.5">2</text>
+<text class="s" x="27.5" y="26.5">@</text>
+</g>
+<g transform="translate(271.4,201.4) rotate(-0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">S</text>
+<text class="n" x="-27.5" y="26.5">R-click</text>
+</g>
+<g transform="translate(271.4,281.4) rotate(-0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">X</text>
+</g>
+<g transform="translate(351.4,111.4) rotate(-0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">E</text>
+<text class="n" x="-27.5" y="26.5">3</text>
+<text class="s" x="27.5" y="26.5">#</text>
+</g>
+<g transform="translate(351.4,191.4) rotate(-0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">D</text>
+<text class="n" x="-27.5" y="26.5">M-click</text>
+</g>
+<g transform="translate(351.4,271.4) rotate(-0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">C</text>
+</g>
+<g transform="translate(431.4,121.4) rotate(-0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">R</text>
+<text class="n" x="-27.5" y="26.5">4</text>
+<text class="s" x="27.5" y="26.5">$</text>
+</g>
+<g transform="translate(431.4,201.4) rotate(-0.0)">
+<rect class="cap acc" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">F</text>
+<text class="n" x="-27.5" y="26.5">L-click</text>
+</g>
+<g transform="translate(431.4,281.4) rotate(-0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">V</text>
+</g>
+<g transform="translate(511.5,131.4) rotate(-0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">T</text>
+<text class="n" x="-27.5" y="26.5">5</text>
+<text class="s" x="27.5" y="26.5">%</text>
+</g>
+<g transform="translate(511.5,211.4) rotate(-0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">G</text>
+<text class="n" x="-27.5" y="26.5">PgUp</text>
+<text class="s" x="27.5" y="26.5">`</text>
+</g>
+<g transform="translate(511.5,291.4) rotate(-0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">B</text>
+<text class="n" x="-27.5" y="26.5">PgDn</text>
+</g>
+<g transform="translate(391.4,375.4) rotate(-0.0)">
+<rect class="cap mod" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="20">Gui</text>
+</g>
+<g transform="translate(475.4,381.8) rotate(12.0)">
+<rect class="cap mod" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="20">NUM</text>
+</g>
+<g transform="translate(565.9,399.4) rotate(26.0)">
+<rect class="cap mod" x="-36.5" y="-56.5" width="73.1" height="113.1" rx="11"/>
+<text class="t" y="-6" font-size="20">Space</text>
+</g>
+<path class="case" d="M1520.5,353.9 L1532.3,349.3 L1537.3,338.4 L1537.3,105.7 L1533.9,95.2 L1528.1,90.6 L1520.9,88.9 L1392.0,88.9 L1382.7,84.7 L1375.2,73.8 L1367.2,69.6 L1307.6,68.7 L1301.7,67.1 L1292.0,60.3 L1285.7,58.7 L1202.1,59.1 L1184.1,68.3 L1122.3,68.7 L1102.2,78.8 L952.2,78.8 L943.4,81.3 L938.0,86.8 L935.4,94.4 L934.6,254.8 L927.9,263.6 L903.5,272.4 L886.3,285.5 L874.5,303.9 L869.5,325.4 L870.8,341.3 L876.2,356.4 L885.0,369.5 L896.8,380.4 L908.6,386.7 L921.2,390.5 L936.3,391.3 L957.7,387.9 L967.8,393.0 L1008.1,473.6 L1014.0,479.5 L1021.5,482.0 L1029.9,480.3 L1100.5,445.9 L1114.8,437.1 L1156.4,428.3 L1240.8,427.8 L1248.8,425.7 L1254.2,420.7 L1257.2,413.1 L1257.6,346.8 L1262.2,338.4 L1270.2,333.8 L1339.1,334.2 L1347.5,338.8 L1356.3,350.6 L1365.5,353.9 L1520.5,353.9 Z"/>
+<rect class="oled" x="976.7" y="140.1" width="35.3" height="109.2" rx="3"/>
+<circle class="pad" cx="932.5" cy="328.3" r="48.7"/>
+<g transform="translate(1484.8,141.4) rotate(0.0)">
+<rect class="cap mod" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">⌫</text>
+</g>
+<g transform="translate(1484.8,221.4) rotate(0.0)">
+<rect class="cap mod" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">&#x27;</text>
+<text class="n" x="-27.5" y="26.5">End</text>
+<text class="s" x="27.5" y="26.5">~</text>
+</g>
+<g transform="translate(1484.8,301.4) rotate(0.0)">
+<rect class="cap mod" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="20">Esc</text>
+<text class="n" x="-27.5" y="26.5">Mute</text>
+<text class="s" x="27.5" y="26.5">Caps</text>
+</g>
+<g transform="translate(1404.8,141.4) rotate(0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">P</text>
+<text class="n" x="-27.5" y="26.5">0</text>
+<text class="s" x="27.5" y="26.5">)</text>
+</g>
+<g transform="translate(1404.8,221.4) rotate(0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">;</text>
+<text class="n" x="-27.5" y="26.5">Home</text>
+<text class="s" x="27.5" y="26.5">\</text>
+</g>
+<g transform="translate(1404.8,301.4) rotate(0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">/</text>
+<text class="n" x="-27.5" y="26.5">Vol+</text>
+<text class="s" x="27.5" y="26.5">|</text>
+</g>
+<g transform="translate(1324.8,121.4) rotate(0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">O</text>
+<text class="n" x="-27.5" y="26.5">9</text>
+<text class="s" x="27.5" y="26.5">(</text>
+</g>
+<g transform="translate(1324.8,201.4) rotate(0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">L</text>
+<text class="n" x="-27.5" y="26.5">→</text>
+<text class="s" x="27.5" y="26.5">]</text>
+</g>
+<g transform="translate(1324.8,281.4) rotate(0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">.</text>
+<text class="n" x="-27.5" y="26.5">Vol−</text>
+<text class="s" x="27.5" y="26.5">}</text>
+</g>
+<g transform="translate(1244.8,111.4) rotate(0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">I</text>
+<text class="n" x="-27.5" y="26.5">8</text>
+<text class="s" x="27.5" y="26.5">*</text>
+</g>
+<g transform="translate(1244.8,191.4) rotate(0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">K</text>
+<text class="n" x="-27.5" y="26.5">↑</text>
+<text class="s" x="27.5" y="26.5">[</text>
+</g>
+<g transform="translate(1244.8,271.4) rotate(0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">,</text>
+<text class="n" x="-27.5" y="26.5">⏭</text>
+<text class="s" x="27.5" y="26.5">{</text>
+</g>
+<g transform="translate(1164.8,121.4) rotate(0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">U</text>
+<text class="n" x="-27.5" y="26.5">7</text>
+<text class="s" x="27.5" y="26.5">&amp;</text>
+</g>
+<g transform="translate(1164.8,201.4) rotate(0.0)">
+<rect class="cap acc" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">J</text>
+<text class="n" x="-27.5" y="26.5">↓</text>
+<text class="s" x="27.5" y="26.5">=</text>
+</g>
+<g transform="translate(1164.8,281.4) rotate(0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">M</text>
+<text class="n" x="-27.5" y="26.5">⏯</text>
+<text class="s" x="27.5" y="26.5">+</text>
+</g>
+<g transform="translate(1084.8,131.4) rotate(0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">Y</text>
+<text class="n" x="-27.5" y="26.5">6</text>
+<text class="s" x="27.5" y="26.5">^</text>
+</g>
+<g transform="translate(1084.8,211.4) rotate(0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">H</text>
+<text class="n" x="-27.5" y="26.5">←</text>
+<text class="s" x="27.5" y="26.5">-</text>
+</g>
+<g transform="translate(1084.8,291.4) rotate(0.0)">
+<rect class="cap" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="26">N</text>
+<text class="n" x="-27.5" y="26.5">⏮</text>
+<text class="s" x="27.5" y="26.5">_</text>
+</g>
+<g transform="translate(1204.8,375.4) rotate(0.0)">
+<rect class="cap mod" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="20">Alt</text>
+</g>
+<g transform="translate(1120.8,381.8) rotate(-12.0)">
+<rect class="cap mod" x="-36.5" y="-36.5" width="73.1" height="73.1" rx="11"/>
+<text class="t" y="-6" font-size="20">SYM</text>
+</g>
+<g transform="translate(1030.3,399.4) rotate(-26.0)">
+<rect class="cap mod" x="-36.5" y="-56.5" width="73.1" height="113.1" rx="11"/>
+<text class="t" y="-6" font-size="20">Enter</text>
+</g>
+<text x="59" y="575" class="lg"><tspan class="lgb" fill="#1d1d1f">BASE</tspan> centre  ·  <tspan class="lgb" fill="#3f6b85">NUM</tspan> bottom-left (hold NUM)  ·  <tspan class="lgb" fill="#c8431f">SYM</tspan> bottom-right (hold SYM)  ·  tap the trackpad to click</text>
+<text x="59" y="613" class="lg"><tspan class="lgb" fill="#1d1d1f">ADJ</tspan> (hold NUM + SYM): BT clr, BT 1, BT 2, BT 3, BT 4, BT 5, Boot, Reset, Off</text>
+</svg>

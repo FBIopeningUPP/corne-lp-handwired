@@ -1,7 +1,5 @@
-<h1 align="center">Corne LP</h1>
-
 <p align="center">
-  <b>A handwired, wireless, 7.7 mm low-profile split keyboard, with a little robot that types along with you.</b>
+  <img src="docs/images/renders/banner.jpg" alt="Corne LP: a handwired, wireless, 7.7 mm thin split keyboard. Both halves in bone with chalk and ink keycaps, Blip on the OLEDs and a trackpad on the right half">
 </p>
 
 <p align="center">
@@ -13,13 +11,10 @@
 </p>
 
 <p align="center">
-  <img src="docs/images/renders/hero.jpg" alt="Corne LP: both halves in bone with chalk and ink keycaps, Blip typing on the OLEDs, a trackpad on the right half">
-</p>
-
-<p align="center">
   <a href="docs/build-guide.md"><b>Build guide</b></a> ·
   <a href="#gallery"><b>Gallery</b></a> ·
   <a href="#meet-blip"><b>Meet Blip</b></a> ·
+  <a href="#keymap"><b>Keymap</b></a> ·
   <a href="print"><b>Print files</b></a> ·
   <a href="firmware"><b>Firmware</b></a> ·
   <a href="viewer/dist/index.html"><b>3D viewer</b></a>
@@ -30,6 +25,8 @@
 The Corne is a great split keyboard, but most builds are tall, tethered and need a PCB order. This one is none of those. It's a 42-key Corne you can **build with a soldering iron and a 3D printer**, sized around Gateron's KS-33 low-profile switches. It runs **wireless** with no cable between the halves, and it's slim enough that the two halves **snap together back-to-back** and slide into a bag.
 
 Every part here is generated from code. The case, keycaps, carry case and wire routes all come from the Python in [`case/`](case), and the renders on this page come from those same meshes.
+
+<p align="center"><img src="docs/images/renders/stats.png" alt="7.7 mm table to plate · 42 keys · about 4 days per charge · 0 PCBs, wired by hand · 2 robots, one per OLED"></p>
 
 <table>
   <tr>
@@ -77,8 +74,6 @@ Every part here is generated from code. The case, keycaps, carry case and wire r
 ---
 
 ## Gallery
-
-<p align="center"><img src="docs/images/renders/turntable.gif" alt="The keyboard turning slowly on a dark studio floor while Blip types" width="720"></p>
 
 <p align="center"><img src="docs/images/renders/exploded.jpg" alt="Exploded view: keycaps, switches, wiring and diodes, the top shell, OLED, SuperMini, battery, power switch, base and magnets"></p>
 <p align="center"><sub><b>Exploded.</b> Keycaps, KS-33 switches, hand-run 30 AWG rows and columns with 1N4148 diodes, the shell, OLED, SuperMini, battery, base and magnets.</sub></p>
@@ -147,7 +142,9 @@ The full step-by-step is in **[docs/build-guide.md](docs/build-guide.md)**. In s
 
 <p align="center"><img src="docs/images/diagrams/wiring_left.png" alt="Left half wiring diagram, seen from underneath" width="70%"></p>
 
-### Keymap
+## Keymap
+
+<p align="center"><img src="docs/images/keymap.svg" alt="Keymap drawn to scale: BASE legends in the centre of each key, NUM bottom-left, SYM bottom-right, ADJ listed underneath"></p>
 
 | Layer | What's on it |
 |---|---|
@@ -162,6 +159,9 @@ The keymap is in [`zmk-config/config/corne_lp.keymap`](zmk-config/config/corne_l
 
 ## What's in here
 
+<details>
+<summary><b>Repo map</b> (click to open)</summary>
+
 ```
 ├── print/            ready to slice
 │   ├── test-kit/       print this first: switch fit, magnets, inserts, reset button, one keycap
@@ -175,8 +175,10 @@ The keymap is in [`zmk-config/config/corne_lp.keymap`](zmk-config/config/corne_l
 ├── keycaps/          CLP keycap source models: stock (clp/) and KS-33 versions (clp_ks33/)
 ├── viewer/           interactive 3D viewer (dist/index.html is one self-contained page)
 ├── docs/             build guide, wiring guide PDF, renders and drawings
-└── tools/render/     makes the renders on this page from the viewer
+└── tools/render/     makes the renders and keymap on this page
 ```
+
+</details>
 
 ## 3D viewer
 
@@ -195,7 +197,7 @@ The keymap is in [`zmk-config/config/corne_lp.keymap`](zmk-config/config/corne_l
 Everything is parametric. Change a number at the top of [`case/case.py`](case/case.py), re-run, and the case, STEP files, carry case, wire routes and viewer all follow. The [build guide](docs/build-guide.md#7-change-the-design) lists every script. To refresh the pictures on this page:
 
 ```
-cd tools/render && npm install && node render.mjs && python3 compose.py
+cd tools/render && npm install && node render.mjs && python3 compose.py && python3 keymap.py
 ```
 
 ## Credits
