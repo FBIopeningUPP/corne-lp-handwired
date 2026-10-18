@@ -1,0 +1,2 @@
+8c99af4292ebd7544b70d9d0c4c2ec4f6929170f Mon Oct 5 19:42:23 2026 +0200
+https://github.com/vvhg1/clp-keycaps (unmodified STLs, renamed)
