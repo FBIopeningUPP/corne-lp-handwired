@@ -1,0 +1,5 @@
+if(CONFIG_CORNE_LP_SCREEN)
+  zephyr_library()
+  zephyr_library_sources(src/status_screen.c src/ui_core.c)
+  zephyr_library_include_directories(${APPLICATION_SOURCE_DIR}/include src)
+endif()

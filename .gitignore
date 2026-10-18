@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+# big generated files (see README: regenerate, or the zips under out/step/)
+out/step/carry_*.step
+out/step/bumper_*.step
+out/step/assembly_both_halves.step
+keycaps/print/all-42-caps/
+out/keycaps/
+# third-party switch model: drop your KS-33 STEP here for case/ks33_check.py
+ref/ks33.step

@@ -1,0 +1,19 @@
+config CORNE_LP_SCREEN
+    bool "Corne LP animated OLED screen (Blip)"
+    default y
+    depends on ZMK_DISPLAY && ZMK_DISPLAY_STATUS_SCREEN_CUSTOM
+    select LV_USE_CANVAS
+    select LV_USE_IMG
+
+if CORNE_LP_SCREEN
+
+config CORNE_LP_OLED_FLIP
+    bool "Turn the OLED image upside down (set this if Blip is upside down)"
+    default n
+
+config CORNE_LP_FPS
+    int "Animation frames per second"
+    default 10
+    range 2 20
+
+endif

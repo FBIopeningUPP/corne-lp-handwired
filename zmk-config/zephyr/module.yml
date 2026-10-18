@@ -1,0 +1,6 @@
+name: corne-lp
+build:
+  cmake: .
+  kconfig: Kconfig
+  settings:
+    board_root: .

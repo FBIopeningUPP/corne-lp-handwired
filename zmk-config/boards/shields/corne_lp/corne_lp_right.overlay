@@ -1,0 +1,69 @@
+#include "corne_lp.dtsi"
+
+&default_transform {
+    col-offset = <6>;
+};
+
+&kscan0 {
+    col-gpios
+        = <&pro_micro 14 GPIO_ACTIVE_HIGH>
+        , <&pro_micro 15 GPIO_ACTIVE_HIGH>
+        , <&pro_micro 18 GPIO_ACTIVE_HIGH>
+        , <&pro_micro 19 GPIO_ACTIVE_HIGH>
+        , <&pro_micro 20 GPIO_ACTIVE_HIGH>
+        , <&pro_micro 21 GPIO_ACTIVE_HIGH>
+        ;
+};
+
+/*
+ * Cirque GlidePoint TM023023-2024-002 (SPI) on spare pins:
+ *   SCK  D8  (P1.04)    MOSI D9  (P1.06)    MISO D0 (P0.08)
+ *   CS   D1  (P0.06)    DR   D16 (P0.10, NFC pin used as GPIO)
+ */
+&pinctrl {
+    spi1_default: spi1_default {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 1, 4)>,
+                    <NRF_PSEL(SPIM_MOSI, 1, 6)>,
+                    <NRF_PSEL(SPIM_MISO, 0, 8)>;
+        };
+    };
+    spi1_sleep: spi1_sleep {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 1, 4)>,
+                    <NRF_PSEL(SPIM_MOSI, 1, 6)>,
+                    <NRF_PSEL(SPIM_MISO, 0, 8)>;
+            low-power-enable;
+        };
+    };
+};
+
+/* NFC pins (D10/D16) become normal GPIOs; D16 carries the trackpad DR line */
+&uicr {
+    nfct-pins-as-gpios;
+};
+
+&spi1 {
+    status = "okay";
+    cs-gpios = <&gpio0 6 GPIO_ACTIVE_LOW>;
+
+    trackpad: trackpad@0 {
+        compatible = "cirque,pinnacle";
+        reg = <0>;
+        spi-max-frequency = <1000000>;
+        status = "okay";
+        dr-gpios = <&gpio0 10 (GPIO_ACTIVE_HIGH)>;
+        sensitivity = "2x";
+        sleep;            /* drops to ~40 uA after 5 s without a finger */
+        rotate-90;        /* matches how the pad's connector sits in the case; tweak if axes feel swapped */
+        x-invert;
+    };
+};
+
+&trackpad_split {
+    device = <&trackpad>;
+};
+
+&trackpad_listener {
+    status = "disabled";
+};

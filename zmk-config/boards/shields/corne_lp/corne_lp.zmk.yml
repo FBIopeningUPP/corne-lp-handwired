@@ -1,0 +1,14 @@
+file_format: "1"
+id: corne_lp
+name: Corne LP (handwired, wireless)
+type: shield
+url: https://github.com/foostan/crkbd
+requires: [pro_micro]
+exposes: [i2c_oled]
+features:
+  - keys
+  - display
+  - pointer
+siblings:
+  - corne_lp_left
+  - corne_lp_right

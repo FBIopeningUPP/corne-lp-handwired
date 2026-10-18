@@ -1,0 +1,8 @@
+# GitHub Actions builds one firmware per half. Grab them from the run's Artifacts.
+include:
+  - board: nice_nano_v2
+    shield: corne_lp_left
+  - board: nice_nano_v2
+    shield: corne_lp_right
+  - board: nice_nano_v2
+    shield: settings_reset
