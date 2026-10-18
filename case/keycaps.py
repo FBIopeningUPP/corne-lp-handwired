@@ -1,10 +1,12 @@
-"""3D-printable low-profile keycaps for Gateron KS-33 (Low Profile 2.0) switches.
+"""Flat 3D-printable low-profile keycaps for Gateron KS-33 (Low Profile 2.0) switches.
+
+Older alternative to the CLP caps the build uses (see clp.py); kept for anyone who wants flat caps.
 
 KS-33 has a (short) MX-style cross stem, so the caps use an MX cross socket. Everything that
 depends on your switch and printer is a parameter at the top; print keycap_stem_test.stl
 first and set STEM_TOL from the slug that pushes on firmly without cracking.
 
-    python3 keycaps.py  ->  out/keycaps/
+    python3 keycaps.py  ->  ../print/keycaps-flat/   (not committed)
         keycap_1u.stl, keycap_1u_homing.stl, keycap_1u5.stl     single caps (print face-down)
         keycap_stem_test.stl                                    5 sockets, 0.04-0.20 mm looser
         keycaps_left_set.stl, keycaps_right_set.stl             a whole half laid out, face-down
@@ -32,7 +34,7 @@ SOCKET_LEFT = 0.6            # plastic left above the bottom of the cross socket
 CROSS_L, CROSS_W = 4.05, 1.20    # MX cross, nominal
 STEM_TOL = 0.12              # added to both cross sizes; tune with the stem test
 HOMING = (6.0, 0.9, 0.35)    # engraved bar on F and J: length, width, depth
-OUT = os.path.join(C.OUT, "keycaps")
+OUT = os.path.join(C.ROOT, "print", "keycaps-flat")
 
 
 def rrect(w, h, r, cx=0.0, cy=0.0):

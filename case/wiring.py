@@ -1,10 +1,10 @@
 """Wiring diagrams.
 
-  out/wiring_matrix.png    key matrix schematic (the same for both halves)
-  out/wiring_left.png      everything in the left half, seen from UNDERNEATH (the way you solder it)
-  out/wiring_right.png     same for the right half (adds the trackpad)
-  out/supermini_pinout.png the board as you hold it (components up, USB-C at the top) with every pad named
-  out/wiring_guide.pdf     all four, one per page, for printing
+  docs/images/diagrams/wiring_matrix.png    key matrix schematic (the same for both halves)
+  docs/images/diagrams/wiring_left.png      everything in the left half, seen from UNDERNEATH (the way you solder it)
+  docs/images/diagrams/wiring_right.png     same for the right half (adds the trackpad)
+  docs/images/diagrams/supermini_pinout.png the board as you hold it (components up, USB-C at the top) with every pad named
+  docs/wiring_guide.pdf                     all four, one per page, for printing
 
 Pads are named the way the SuperMini nRF52840 prints them (006, 022, 111, ...), with the
 ZMK / Pro Micro name next to them (D1, D4, D14, ...).
@@ -306,9 +306,9 @@ if __name__ == "__main__":
             fig, ax = plt.subplots(figsize=size, facecolor=BG)
             fn(ax)
         fig.tight_layout()
-        fig.savefig(os.path.join(C.OUT, name + ".png"), dpi=170, facecolor=BG)
+        fig.savefig(os.path.join(C.IMG_DIR, name + ".png"), dpi=170, facecolor=BG)
         pages.append(fig)
-    with PdfPages(os.path.join(C.OUT, "wiring_guide.pdf")) as pdf:
+    with PdfPages(os.path.join(C.DOCS_DIR, "wiring_guide.pdf")) as pdf:
         for f in pages:
             pdf.savefig(f, facecolor=BG)
     print("wiring diagrams written")

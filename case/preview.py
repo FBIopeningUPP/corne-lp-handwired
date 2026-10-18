@@ -61,7 +61,7 @@ b = g["outer"].bounds
 ax.set_title(f"Left half (see-through) · {b[2]-b[0]:.0f} × {b[3]-b[1]:.0f} mm · "
              f"{C.H + C.BOTTOM_T:.1f} mm tall without keycaps", fontsize=10, color=INK, pad=28)
 ax.set_aspect("equal"); ax.axis("off"); ax.set_xlim(b[0] - 4, b[2] + 22)
-plt.tight_layout(); plt.savefig(os.path.join(C.OUT, "top_view.png"), dpi=150, facecolor=PAPER)
+plt.tight_layout(); plt.savefig(os.path.join(C.IMG_DIR, "top_view.png"), dpi=150, facecolor=PAPER)
 
 # ---------------- 2. halves snapped together ----------------
 fig, ax = plt.subplots(figsize=(11, 4.6), facecolor=PAPER)
@@ -75,7 +75,7 @@ for part in (lambda p: p, right):
 fill(ax, right(g["tp"]), color="#9b7fd1")
 ax.set_title(f"In use, {2 * (x_join - g['outer'].bounds[0]):.0f} mm across (halves can sit at any distance)", fontsize=10)
 ax.set_aspect("equal"); ax.axis("off")
-plt.tight_layout(); plt.savefig(os.path.join(C.OUT, "in_use.png"), dpi=150, facecolor=PAPER)
+plt.tight_layout(); plt.savefig(os.path.join(C.IMG_DIR, "in_use.png"), dpi=150, facecolor=PAPER)
 
 # ---------------- 3. sections through the bay (y-z), one per column ----------------
 fig, axes = plt.subplots(3, 1, figsize=(10, 8.6), facecolor=PAPER)
@@ -132,5 +132,5 @@ ax.annotate("knob sticks out ~2 mm", (C.SW_XOUT, C.SW_ZC), (C.SW_XOUT + 3, C.SW_
 ax.set_xlim(gx1 - 14, C.SW_XOUT + 16); ax.set_ylim(-C.BOTTOM_T - 1, C.H + 1.5)
 ax.set_aspect("equal"); ax.axis("off")
 ax.set_title("Across the power switch (inner side wall on the right)", fontsize=9.5, loc="left")
-plt.tight_layout(); plt.savefig(os.path.join(C.OUT, "section.png"), dpi=170, facecolor=PAPER)
+plt.tight_layout(); plt.savefig(os.path.join(C.IMG_DIR, "section.png"), dpi=170, facecolor=PAPER)
 print("drawings written")

@@ -5,7 +5,7 @@ so the STEP files match the STLs, but with a real top-edge chamfer and clean fac
 you can open and edit in Fusion 360, Onshape, FreeCAD, SolidWorks, etc.
 
     pip install cadquery-ocp
-    python3 step.py        -> ../out/step/*.step
+    python3 step.py        -> ../cad/*.step, viewer meshes, and the final printable STLs in ../print/
 """
 import os
 from OCP.gp import gp_Pnt, gp_Vec, gp_Dir, gp_Ax2, gp_Trsf, gp_Ax1
@@ -32,8 +32,7 @@ from shapely.geometry import box, Polygon, Point
 from shapely.geometry.polygon import orient
 import case as C
 
-OUT = os.path.join(C.OUT, "step")
-os.makedirs(OUT, exist_ok=True)
+OUT = C.STEP_DIR
 
 
 # ---------------- primitives ----------------
@@ -354,7 +353,7 @@ def write_viewer_mesh(shape, path):
 
 
 if __name__ == "__main__":
-    vdir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "viewer")
+    vdir = C.VIEWER_DIR
     for n in ("shell_left", "shell_right", "bottom_left", "bottom_right"):
         write_viewer_mesh(parts[n], os.path.join(vdir, n + ".bin"))
 
@@ -365,7 +364,7 @@ if __name__ == "__main__":
     from OCP.StlAPI import StlAPI_Writer
     for n, flip in (("shell_left", True), ("shell_right", True), ("bottom_left", False), ("bottom_right", False),
                     ("switch_fit_test", True)):
-        rd = STEPControl_Reader(); rd.ReadFile(os.path.join(C.OUT, "step", n + ".step")); rd.TransferRoots()
+        rd = STEPControl_Reader(); rd.ReadFile(os.path.join(C.STEP_DIR, n + ".step")); rd.TransferRoots()
         sh = rd.OneShape()
         BRepMesh_IncrementalMesh(sh, 0.02, False, 0.2, True)
         with tempfile.TemporaryDirectory() as d:
@@ -374,5 +373,6 @@ if __name__ == "__main__":
         if flip:   # plate side on the bed
             m.apply_transform(trimesh.transformations.rotation_matrix(math.pi, [1, 0, 0]))
         m.apply_translation(-m.bounds[0])
-        m.export(os.path.join(C.OUT, n + ".stl"))
-        print(f"{n}.stl from STEP: watertight={m.is_watertight} {m.volume / 1000:.2f} cm3")
+        dest = os.path.join(C.TEST_DIR, "1_switch_strip.stl") if n == "switch_fit_test" else os.path.join(C.KB_DIR, n + ".stl")
+        m.export(dest)
+        print(f"{os.path.basename(dest)} from STEP: watertight={m.is_watertight} {m.volume / 1000:.2f} cm3")

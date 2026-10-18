@@ -5,7 +5,7 @@
     clp.top(key)           -> cap top above the plate's top face (mm)
     clp.CAP_TOP            -> tallest cap on the board (the carry case is built around it)
     clp.footprint(key, z)  -> keycap outline (case frame) of everything above height z over the plate
-    python3 clp.py         -> table + ../keycaps/print/ (Orca 3MF plate + one file per cap) + viewer meshes
+    python3 clp.py         -> table + ../print/keycaps/ (Orca 3MF plate + one file per cap) + viewer meshes
 
 Caps sit on the switch (checked against the KS-33 STEP model): the KS-33 cross stands in a round
 well whose floor is 3.0 mm over the plate, and a cap's round stem drops into it and stops on the floor.
@@ -167,7 +167,7 @@ if __name__ == "__main__":
     for mdl in MODELS:
         m = mesh(mdl); m.export(os.path.join(ks, mdl + ".stl"))
         print(f"  KS-33 {mdl}: watertight={m.is_watertight} bodies={m.body_count} z {m.bounds[0][2]:.2f}..{m.bounds[1][2]:.2f}")
-    out = os.path.join(HERE, "..", "keycaps", "print"); os.makedirs(out, exist_ok=True)
+    out = os.path.join(HERE, "..", "print", "keycaps"); os.makedirs(out, exist_ok=True)
     order = ["saddle", "saddle_homing", "thumb", "tilt7", "tilt7_1u5"]
     objs, items, row, k, PX, PY, COLS = [], [], 0, 0, 17.0, 23.0, 8
     rows = {}

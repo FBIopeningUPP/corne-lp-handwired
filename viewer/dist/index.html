@@ -1344,7 +1344,15 @@ function step(now) {
   updateBlobs();
 }
 
-if (window.__CORNE_TEST) window.__R = { renderer, scene, THREE, M, rim, key, hemi };
+// test / render hook (tools/render drives the viewer through this; never set on the live page)
+if (window.__CORNE_TEST) window.__R = {
+  renderer, scene, THREE, M, rim, key, hemi, camera, controls, ground, vis, target, keyMeshes, screens, CAMS,
+  setMode, setCase, setWiring, goCam, pressKey, themeColors,
+  setCaseStyle: (s) => { caseStyle = s; },
+  setDemo: (on) => { demoOn = on; demoStart = demoNext = performance.now(); demoI = 0; },
+  ready: () => !!carry,
+  get left() { return left; }, get right() { return right; }, get carry() { return carry; },
+};
 /* ---------- boot ---------- */
 onSize(); requestAnimationFrame(tick);
 (async () => {

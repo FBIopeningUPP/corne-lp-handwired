@@ -1,6 +1,6 @@
 """Case style options. Each style turns the same key/bay/trackpad layout into an outline.
 
-    python3 styles.py   -> out/case_styles.png (comparison sheet)
+    python3 styles.py   -> ../docs/images/style-options/case_styles*.png (comparison sheets)
 """
 import os
 import numpy as np
@@ -216,5 +216,6 @@ if __name__ == "__main__":
     plt.tight_layout(pad=1.5)
     name = {"first": "case_styles.png", "minimal": "case_styles_minimal.png",
             "simple": "case_styles_simple.png"}[sheet]
-    plt.savefig(os.path.join(C.OUT, name), dpi=130, facecolor="#f5f3ee")
+    d = os.path.join(C.DOCS_DIR, "images", "style-options"); os.makedirs(d, exist_ok=True)
+    plt.savefig(os.path.join(d, name), dpi=130, facecolor="#f5f3ee")
     print(name, "written")
