@@ -44,5 +44,5 @@ for ax, side in zip(axes, ("left", "right")):
                  fontsize=9.5)
     ax.set_aspect("equal"); ax.axis("off")
 plt.tight_layout()
-plt.savefig(os.path.join(C.OUT, "bases_underneath.png"), dpi=150, facecolor=PAPER)
+plt.savefig(os.path.join(C.IMG_DIR, "bases_underneath.png"), dpi=150, facecolor=PAPER)
 print("bases_underneath.png written")

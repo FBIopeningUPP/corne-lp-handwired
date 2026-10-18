@@ -3,3 +3,5 @@ shapely
 trimesh
 numpy
 matplotlib
+networkx
+scipy

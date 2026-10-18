@@ -2,15 +2,15 @@
 
 Two printed parts per half:
   shell  - switch plate + walls + OLED bezel in one piece (print plate side DOWN)
-  bottom - 1.6 mm base with power-switch slot, screwed to the shell
+  bottom - 1.0 mm base (magnets, feet pockets, reset pinhole), screwed to the shell
 
-Everything lives inside: SuperMini nRF52840 stacked on a 3 mm LiPo, a 0.91" OLED
-under a bezel window, a slide power switch under the base, a Cirque 23 mm
+Everything lives inside: a SuperMini nRF52840 on rails under a 0.91" OLED, a 120 mAh
+LiPo under the thumb lobe, a slide power switch in the side wall, a Cirque 23 mm
 trackpad (right half), and 4 magnets per half in the base so the halves stack
 back-to-back (keycaps out) for your bag.
 
-Run:  python3 case.py      -> STLs in ../out/
-      python3 preview.py   -> drawings in ../out/
+Run:  python3 case.py      -> STLs in ../print/keyboard/ (+ the switch fit strip in ../print/test-kit/)
+      python3 preview.py   -> drawings in ../docs/images/diagrams/
 """
 import math, os, sys
 import numpy as np
@@ -23,7 +23,7 @@ import layout as L
 
 # ======================= parameters (mm) =======================
 # --- switches (Gateron KS-33 low profile) ---
-HOLE      = 14.0   # plate cut-out; print switch_fit_test.stl first and pick 13.8-14.1
+HOLE      = 14.0   # plate cut-out; print the test kit (print/test-kit/) first and pick 13.8-14.1
 POCKET    = 15.6   # relief under the lip so the switch clips can spring out
 LIP       = 1.2    # KS-33 clips are made for a 1.2 mm plate
 PLATE_T   = 2.0    # printed plate (1.2 lip + 0.8 stiffening)
@@ -35,7 +35,6 @@ BOTTOM_T  = 1.0
 EDGE_CH   = 1.0    # rounded top edge (radius)
 BASE_CH   = 0.5    # rounded bottom edge of the base (radius): it reads thinner than it is
 SMOOTH    = 6.0    # fills notches in the outline
-# --- screws (M2 x 6 countersunk, self-tapping into printed bosses) ---
 # --- screws: M2 countersunk (DIN 965) into M2 x 4 mm heat-set brass inserts ---
 INSERT_HOLE  = 3.0   # set to your insert's outer diameter - 0.2 (measure it; knurled M2 x 4 are 3.2-3.5)
 INSERT_DEPTH = 4.7   # 4 mm insert seated 0.3 mm deep (room for the screw head's tip) + 0.4 for melt
@@ -65,7 +64,7 @@ SW_Z0 = 0.15
 SW_PED = SW_Z0     # (viewer)
 MCU_RAIL       = 1.0          # SuperMini rides on two rails: room for the battery wires to its B+/B- pads
 USB_SLOT_W     = 11.5
-# --- magnets: 4 per half in the base, 6 x 2 mm N52 discs ---
+# --- magnets: 4 per half in the base, 6 x 1 mm N52 discs ---
 MAG_D, MAG_T   = 6.2, 1.0     # 6 x 1 mm discs glued flush into through-holes in the 1.0 mm base
 N_MAGNETS      = 4
 # --- Cirque GlidePoint TM023023-2024-002 (23.2 mm, SPI) ---
@@ -74,8 +73,18 @@ TP_LEDGE       = 0.7
 
 U = L.U
 H = CAVITY + PLATE_T                  # shell height
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "out")
-os.makedirs(OUT, exist_ok=True)
+# ======================= where files go =======================
+ROOT       = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+KB_DIR     = os.path.join(ROOT, "print", "keyboard")      # shells + bases
+CARRY_DIR  = os.path.join(ROOT, "print", "carry-case")    # carry case + bumper
+TEST_DIR   = os.path.join(ROOT, "print", "test-kit")      # fit tests
+CAPS_DIR   = os.path.join(ROOT, "print", "keycaps")       # CLP keycap print package
+STEP_DIR   = os.path.join(ROOT, "cad")                    # STEP solids
+DOCS_DIR   = os.path.join(ROOT, "docs")
+IMG_DIR    = os.path.join(DOCS_DIR, "images", "diagrams") # drawings
+VIEWER_DIR = os.path.join(ROOT, "viewer")
+for _d in (KB_DIR, CARRY_DIR, TEST_DIR, CAPS_DIR, STEP_DIR, IMG_DIR):
+    os.makedirs(_d, exist_ok=True)
 keys = L.all_keys()
 
 # ======================= electronics bay =======================
@@ -400,12 +409,12 @@ if CAP_RECESS > 0:
     PLATE_T - CAP_RECESS, PLATE_T + 1)
 
 # ======================= export =======================
-def export(m, name, flip=False):
+def export(m, name, flip=False, folder=KB_DIR):
     tm = to_trimesh(m)
     if flip:
         tm.apply_transform(trimesh.transformations.rotation_matrix(math.pi, [1, 0, 0]))
     tm.apply_translation(-tm.bounds[0])
-    tm.export(os.path.join(OUT, f"{name}.stl"))
+    tm.export(os.path.join(folder, f"{name}.stl"))
     print(f"{name:16s} {m.status().name:8s} {m.volume()/1000:5.1f} cm3  "
           f"{tm.extents[0]:.1f} x {tm.extents[1]:.1f} x {tm.extents[2]:.1f} mm")
 
@@ -415,7 +424,7 @@ if __name__ == "__main__":
     export(bottom_left, "bottom_left")
     export(bottom_right_frame.mirror([1, 0, 0]), "bottom_right")
     print("feet A (left):", DETAILS["feet_A"], " feet B (right):", DETAILS["feet_B"])
-    export(test, "switch_fit_test", flip=True)
+    export(test, "1_switch_strip", flip=True, folder=TEST_DIR)
     b = outer.bounds
     print(f"half: {b[2]-b[0]:.1f} x {b[3]-b[1]:.1f} mm, total height {H + BOTTOM_T:.1f} mm (no keycaps)")
     print("bosses:", BOSSES, "posts:", POSTS)

@@ -1,0 +1,9 @@
+{
+  "name": "corne-lp-render",
+  "private": true,
+  "description": "Studio renders of the Corne LP for the README (drives viewer/dist/index.html in headless Chromium)",
+  "type": "module",
+  "scripts": { "render": "node render.mjs" },
+  "dependencies": { "three": "0.160.0" },
+  "devDependencies": { "playwright": "1.56.1" }
+}

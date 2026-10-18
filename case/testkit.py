@@ -1,6 +1,6 @@
 """Test-print kit: print this before the full case (about 25 min, ~6 g).
 
-    python3 testkit.py -> ../out/test_kit/test_kit.3mf (+ STLs)
+    python3 testkit.py -> ../print/test-kit/test_kit.3mf (+ STLs; run case.py or step.py first for the strip)
       1  switch strip   4 plate holes 13.8 / 13.9 / 14.0 / 14.1 (1-4 notches): pick the one a KS-33 clicks into
                         firmly, set HOLE in case.py; the skirt is as deep as the case, so trimmed pins must clear the table
       2  coupon         magnet holes 6.0 / 6.2 / 6.4 (1-3 notches) in a 1 mm floor like the base,
@@ -14,7 +14,7 @@ from shapely.geometry import box, Point
 import case as C
 import clp
 
-OUT = os.path.join(C.OUT, "test_kit"); os.makedirs(OUT, exist_ok=True)
+OUT = C.TEST_DIR
 
 
 def coupon():
@@ -54,7 +54,7 @@ def tm(man):
 
 
 if __name__ == "__main__":
-    strip = trimesh.load(os.path.join(C.OUT, "switch_fit_test.stl"))
+    strip = trimesh.load(os.path.join(OUT, "1_switch_strip.stl"))
     cp = tm(coupon())
     cap = clp.print_pose("saddle")
     for n, t in (("1_switch_strip", strip), ("2_coupon_magnet_insert_reset", cp), ("3_clp_saddle_cap", cap)):

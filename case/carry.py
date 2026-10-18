@@ -9,7 +9,7 @@ Frame: the left half's case coordinates (top view of the left half, base outer f
 z = -BOTTOM_T). The stack's footprint is the left outline, because the right half is its
 mirror and lies flipped over it.
 
-    python3 carry.py      -> out/carry_tray.stl, out/carry_lid.stl, out/step/carry_*.step,
+    python3 carry.py      -> ../print/carry-case/*.stl, ../cad/carry_*.step + bumper_*.step,
                              ../viewer/carry_tray.bin, ../viewer/carry_lid.bin
 """
 import math, os
@@ -64,9 +64,9 @@ RIB_W, RIB_D, RIB_PITCH = 0.6, 0.4, 1.6    # grip ribs round the side walls
 SEAM = -C.BOTTOM_T
 HALF = C.BOTTOM_T + C.H + CAP_TOP                   # one half, base face -> keycap tops
 DEPTH = HALF + ABOVE - SKIN                         # cavity depth per side: skin wraps the top 0.9 mm of the caps
-OUT = C.OUT
-STEP_DIR = os.path.join(OUT, "step")
-VIEWER = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "viewer")
+OUT = C.CARRY_DIR
+STEP_DIR = C.STEP_DIR
+VIEWER = C.VIEWER_DIR
 
 # ---------------- 2D ----------------
 # power-switch knobs (both halves land on the same x, y) stick ~2 mm out of the side wall
