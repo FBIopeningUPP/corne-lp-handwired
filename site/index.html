@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Corne LP: handwired, wireless, 7.7 mm split keyboard</title>
+<meta name="description" content="A 42-key handwired wireless Corne you can build with a soldering iron and a 3D printer. 7.7 mm thin, ZMK, KS-33 low-profile switches, a trackpad, and a robot on each OLED.">
+<meta property="og:title" content="Corne LP">
+<meta property="og:description" content="Handwired, wireless, 7.7 mm thin split keyboard with a robot on each screen. Open source: STLs, STEP, firmware and build guide.">
+<meta property="og:image" content="images/renders/banner.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23e5532a'/%3E%3Crect x='7' y='9' width='8' height='14' rx='2' fill='%23fff'/%3E%3Crect x='17' y='9' width='8' height='14' rx='2' fill='%23fff' opacity='.55'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#121316;--card:#1a1b1f;--line:#2b2c31;--fg:#f3efe7;--mut:#9b9a97;--bone:#e4ddcf;--sig:#e5532a;--blue:#6fe3ff;--r:18px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 Inter,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}img{max-width:100%;height:auto;display:block}
+.wrap{width:min(1120px,100% - 40px);margin:0 auto}
+nav{position:sticky;top:0;z-index:10;background:rgba(18,19,22,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:6px;height:58px}
+nav b{font-size:17px;letter-spacing:-.01em;margin-right:auto}nav b span{color:var(--sig)}
+nav a{text-decoration:none;color:var(--mut);font-size:14px;padding:6px 10px;border-radius:8px}
+nav a:hover{color:var(--fg);background:#ffffff0d}
+nav a.cta{background:var(--sig);color:#fff;font-weight:600}
+@media(max-width:760px){nav a.hide{display:none}}
+.btn{display:inline-block;text-decoration:none;font-weight:600;padding:12px 22px;border-radius:999px;border:1px solid #4a4b50;font-size:15px}
+.btn.p{background:var(--sig);border-color:var(--sig);color:#fff}.btn:hover{filter:brightness(1.12)}
+/* hero */
+.hero{text-align:center;padding:64px 0 8px}
+.hero h1{font-size:clamp(46px,9vw,108px);line-height:.95;letter-spacing:-.04em;margin:0 0 18px}
+.hero p.sub{font-size:clamp(17px,2.4vw,22px);color:var(--mut);max-width:34em;margin:0 auto 26px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:0 0 30px;padding:0;list-style:none}
+.chips li{font-size:12px;font-weight:700;letter-spacing:.06em;padding:7px 14px;border:1px solid #4a4b50;border-radius:999px;color:var(--bone)}
+.chips li:first-child{background:var(--sig);border-color:var(--sig);color:#fff}
+.hero .acts{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.heroimg{margin:40px auto 0;width:min(1500px,100%)}
+.heroimg img{width:100%;border-radius:var(--r);aspect-ratio:2.7/1;object-fit:cover;object-position:50% 58%}
+@media(max-width:760px){.heroimg img{aspect-ratio:1.9/1;object-position:50% 56%}}
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(5,1fr);margin:56px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stats div{padding:28px 10px;text-align:center;border-left:1px solid var(--line)}.stats div:first-child{border:0}
+.stats strong{display:block;font-size:clamp(34px,5vw,58px);line-height:1;letter-spacing:-.03em}
+.stats div:first-child strong{color:var(--sig)}
+.stats small{display:block;color:var(--mut);font-size:13px;margin-top:8px}
+@media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}.stats div{border-left:0;border-top:1px solid var(--line)}}
+/* sections */
+section{padding:56px 0}
+h2{font-size:clamp(30px,4.6vw,48px);letter-spacing:-.03em;line-height:1.05;margin:0 0 12px}
+.lead{color:var(--mut);font-size:18px;max-width:40em;margin:0 0 34px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.card img{width:100%;cursor:zoom-in}
+.card div{padding:16px 20px 20px}.card h3{margin:0 0 4px;font-size:18px}.card p{margin:0;color:var(--mut);font-size:15px}
+.card.wide{grid-column:1/-1}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.feat{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:6px}
+.feat div{padding:22px;border:1px solid var(--line);border-radius:var(--r);background:var(--card)}
+.feat h3{margin:0 0 6px;font-size:17px}.feat p{margin:0;color:var(--mut);font-size:15px}
+@media(max-width:900px){.feat{grid-template-columns:1fr}}
+/* viewer CTA */
+.viewer{border:1px solid var(--line);border-radius:28px;background:radial-gradient(120% 140% at 80% 0,#2a2321 0,var(--card) 55%);padding:clamp(28px,5vw,60px);display:grid;grid-template-columns:1.1fr 1fr;gap:34px;align-items:center}
+.viewer ul{margin:0 0 26px;padding-left:1.2em;color:var(--mut)}.viewer li{margin:5px 0}
+.viewer img{border-radius:var(--r)}
+@media(max-width:860px){.viewer{grid-template-columns:1fr}}
+/* blip */
+.blip{display:grid;grid-template-columns:auto 1fr;gap:clamp(24px,5vw,60px);align-items:center}
+.blip img.g{width:230px;border-radius:14px}
+.blip ul{margin:0;padding-left:1.2em;color:var(--mut)}.blip li{margin:6px 0}.blip li b{color:var(--fg)}
+@media(max-width:700px){.blip{grid-template-columns:1fr}.blip img.g{margin:0 auto}}
+.keymap{background:#f6f3ee;border-radius:var(--r);padding:12px}
+/* steps / downloads */
+.steps{counter-reset:s;display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding:0;list-style:none;margin:0}
+.steps li{counter-increment:s;padding:22px;border:1px solid var(--line);border-radius:var(--r);background:var(--card);color:var(--mut);font-size:15px}
+.steps li:before{content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--sig);color:#fff;font-weight:700;margin-bottom:12px}
+.steps li b{display:block;color:var(--fg);font-size:17px;margin-bottom:4px}
+@media(max-width:900px){.steps{grid-template-columns:1fr}}
+.dl{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:26px}
+.dl a{display:block;text-decoration:none;padding:18px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.dl a:hover{border-color:var(--sig)}.dl b{display:block}.dl span{color:var(--mut);font-size:13.5px}
+@media(max-width:900px){.dl{grid-template-columns:repeat(2,1fr)}}
+footer{border-top:1px solid var(--line);padding:34px 0 60px;color:var(--mut);font-size:14px;text-align:center}
+footer a{color:var(--bone)}
+/* lightbox */
+#lb{position:fixed;inset:0;background:#000d;display:none;place-items:center;z-index:50;cursor:zoom-out;padding:20px}
+#lb.on{display:grid}#lb img{max-height:100%;border-radius:12px}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <b>Corne <span>LP</span></b>
+  <a class="hide" href="#gallery">Gallery</a><a class="hide" href="#blip">Blip</a><a class="hide" href="#keymap">Keymap</a><a class="hide" href="#build">Build</a>
+  <a href="viewer/">3D viewer</a>
+  <a class="cta" href="https://github.com/FBIopeningUPP/corne-lp-handwired">GitHub</a>
+</div></nav>
+
+<header class="hero wrap">
+  <h1>Corne LP</h1>
+  <p class="sub">A handwired, wireless, 7.7&nbsp;mm thin split keyboard with a robot on each screen. Build it with a soldering iron and a 3D printer.</p>
+  <ul class="chips"><li>42 KEYS</li><li>ZMK</li><li>nRF52840</li><li>KS-33 LOW PROFILE</li><li>CIRQUE TRACKPAD</li></ul>
+  <div class="acts"><a class="btn p" href="viewer/">Open the 3D viewer</a><a class="btn" href="build-guide/">Read the build guide</a></div>
+  <div class="heroimg"><img src="images/renders/hero.jpg" alt="Both halves of the Corne LP in bone with chalk and ink keycaps, Blip on the OLEDs and a trackpad on the right half" width="2400" height="1350"></div>
+</header>
+
+<main class="wrap">
+  <div class="stats">
+    <div><strong>7.7</strong><small>mm, table to plate</small></div>
+    <div><strong>42</strong><small>keys, Corne 3×6 + 3</small></div>
+    <div><strong>~4</strong><small>days per charge (estimated)</small></div>
+    <div><strong>0</strong><small>PCBs, wired by hand</small></div>
+    <div><strong>2</strong><small>robots, one per OLED</small></div>
+  </div>
+
+  <section id="why" style="padding-top:0">
+    <h2>Thin, wireless, and yours to build</h2>
+    <p class="lead">Most Corne builds are tall, tethered and need a PCB order. This one is none of those. It runs wireless with no cable between the halves, and it's slim enough that the two halves snap together back-to-back and slide into a bag.</p>
+    <div class="feat">
+      <div><h3>Wireless split</h3><p>A SuperMini nRF52840 in each half running ZMK, with a custom <code>corne_lp</code> keyboard definition and the stock Corne pinout.</p></div>
+      <div><h3>Trackpad built in</h3><p>A Cirque 23&nbsp;mm GlidePoint on the right half, next to the thumb keys. Tap to click, or use the home-row mouse buttons.</p></div>
+      <div><h3>Sculpted low-profile caps</h3><p>CLP keycaps reworked for the KS-33 with a 2.1&nbsp;mm longer stem, so you get the full 3.2&nbsp;mm of travel. All 42 on one slicer plate.</p></div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <h2>Gallery</h2>
+    <p class="lead">Every picture is rendered from the same meshes you print. Click one to enlarge.</p>
+    <div class="grid">
+      <div class="card"><img loading="lazy" src="images/renders/profile.jpg" alt="Low three-quarter view showing how thin the case is"><div><h3>7.7 mm thin</h3><p>A 6.7 mm shell plus a 1 mm base, with a rounded 1 mm top edge.</p></div></div>
+      <div class="card"><img loading="lazy" src="images/renders/closeup.jpg" alt="Close-up of the OLEDs with Blip typing, and the trackpad"><div><h3>Blip on the OLED</h3><p>He types when you type, throws sparks as you speed up and grows a flame crown past 70 WPM.</p></div></div>
+      <div class="card"><img loading="lazy" src="images/renders/bag.jpg" alt="Both halves stacked back-to-back with keycaps facing out"><div><h3>Bag mode</h3><p>Four magnets per base pull the halves together, keycaps out. The feet of one half drop into empty pockets on the other.</p></div></div>
+      <div class="card"><img loading="lazy" src="images/renders/carry.jpg" alt="The click-shut carry case with a window over every key"><div><h3>Carry case</h3><p>A two-piece shell clicks shut around the stack, with a window for every key and both OLEDs.</p></div></div>
+      <div class="card wide"><img loading="lazy" src="images/renders/exploded.jpg" alt="Exploded view of keycaps, switches, wiring, shell, OLED, SuperMini, battery, base and magnets"><div><h3>Exploded</h3><p>Keycaps, KS-33 switches, hand-run 30 AWG rows and columns with 1N4148 diodes, the shell, OLED, SuperMini, battery, base and magnets.</p></div></div>
+      <div class="card"><img loading="lazy" src="images/renders/xray.jpg" alt="Graphite case seen through, showing the electronics bay"><div><h3>X-ray</h3><p>The SuperMini rides on rails under the OLED, and the battery sits under the thumb lobe.</p></div></div>
+      <div class="card"><img loading="lazy" src="images/renders/wiring.jpg" alt="Underside with the base off, every wire and diode in place"><div><h3>Wiring</h3><p>Every wire and diode, routed and clearance-checked by script.</p></div></div>
+      <div class="card"><img loading="lazy" src="images/renders/top.jpg" alt="Straight-down view of both halves"><div><h3>From above</h3><p>Column stagger, splayed thumbs and a trackpad on the right.</p></div></div>
+      <div class="card"><img loading="lazy" src="images/renders/bumper.jpg" alt="The open bumper case in signal orange around the stacked halves"><div><h3>Bumper case</h3><p>Two open frames that click together. The keys stay on show, and the rim sits just above them.</p></div></div>
+    </div>
+    <h2 style="margin-top:56px;font-size:30px">Pick your colours</h2>
+    <p class="lead" style="margin-bottom:18px">Any filament works. These are the colourways in the viewer.</p>
+    <div class="card"><img loading="lazy" src="images/renders/colorways.jpg" alt="Six colourways: Bone, Graphite, Sage, Glacier, Lilac and Signal"></div>
+  </section>
+
+  <section>
+    <div class="viewer">
+      <div>
+        <h2>Spin it yourself</h2>
+        <ul>
+          <li>Orbit it any way, even underneath</li>
+          <li>Built, exploded, x-ray and bag views</li>
+          <li>Every wire and diode, with names on hover</li>
+          <li>Close the carry case or bumper around the stack</li>
+          <li>Try case and keycap colours</li>
+          <li>Type, and Blip types along with you</li>
+        </ul>
+        <a class="btn p" href="viewer/">Open the 3D viewer</a>
+      </div>
+      <img loading="lazy" src="images/renders/xray.jpg" alt="Preview of the 3D viewer">
+    </div>
+  </section>
+
+  <section id="blip">
+    <h2>Meet Blip</h2>
+    <div class="blip">
+      <img class="g" src="images/blip.gif" alt="Both OLEDs animating: Blip typing with sparks flying off his antenna" width="384" height="574">
+      <div>
+        <p class="lead" style="margin-bottom:14px">A 32 × 42 px robot drawn on each half's OLED by the firmware.</p>
+        <ul>
+          <li><b>Typing:</b> his hands swap on every key press.</li>
+          <li><b>Faster:</b> sparks fly off his antenna, denser as your WPM climbs.</li>
+          <li><b>Over 70 WPM:</b> a flickering flame crown appears.</li>
+          <li><b>Idle:</b> he blinks and bobs.</li>
+          <li><b>Stop typing:</b> he falls asleep, and the screens turn off after 30 s.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="keymap">
+    <h2>Keymap</h2>
+    <p class="lead">Drawn to scale from the real layout. BASE in the centre of each key, NUM bottom-left, SYM bottom-right. Hold NUM + SYM for the ADJ layer (Bluetooth profiles, bootloader, reset).</p>
+    <div class="keymap"><img loading="lazy" src="images/keymap.svg" alt="Keymap drawn to scale with BASE, NUM and SYM legends" width="1596" height="661"></div>
+  </section>
+
+  <section id="build">
+    <h2>Build one</h2>
+    <p class="lead">About a weekend: a day of printing and an evening of soldering. Everything is open.</p>
+    <ol class="steps">
+      <li><b>Buy the parts</b>All off the shelf. The build guide has the full list with notes.</li>
+      <li><b>Print the test kit</b>25 minutes. Checks switch fit, magnet and insert holes, the reset button and a keycap.</li>
+      <li><b>Print the case and caps</b>Shells, bases and all 42 keycaps. The keyboard needs no supports.</li>
+      <li><b>Flash the firmware</b>Pre-built .uf2 files for each half. Flash before you close anything.</li>
+      <li><b>Wire it by hand</b>A printable wiring guide shows every half, pin and diode.</li>
+      <li><b>Assemble</b>Battery, SuperMini, OLED, switch, trackpad, then seven screws per half.</li>
+    </ol>
+    <div class="dl">
+      <a href="build-guide/"><b>Build guide</b><span>Parts, printing, wiring, assembly</span></a>
+      <a href="wiring_guide.pdf"><b>Wiring guide (PDF)</b><span>Print it and keep it on the bench</span></a>
+      <a href="corne-lp-print-files.zip"><b>All print files (zip)</b><span>STLs and 3MFs: keyboard, keycaps, case, test kit</span></a>
+      <a href="https://github.com/FBIopeningUPP/corne-lp-handwired"><b>Source on GitHub</b><span>STEP files, firmware, generator scripts</span></a>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  Made with a soldering iron, a 3D printer and some code. Keycaps by <a href="https://github.com/vvhg1/clp-keycaps">vvhg1</a> (GPL v3), layout by <a href="https://github.com/foostan/crkbd">foostan</a>, firmware by <a href="https://zmk.dev">ZMK</a>.<br>
+  <a href="https://github.com/FBIopeningUPP/corne-lp-handwired">github.com/FBIopeningUPP/corne-lp-handwired</a>
+</div></footer>
+
+<div id="lb" aria-hidden="true"><img alt=""></div>
+<script>
+(function () {
+  var lb = document.getElementById("lb"), im = lb.querySelector("img");
+  document.addEventListener("click", function (e) {
+    var t = e.target;
+    if (t.matches && t.matches(".card img, .heroimg img")) { im.src = t.currentSrc || t.src; im.alt = t.alt; lb.classList.add("on"); }
+    else if (lb.classList.contains("on")) lb.classList.remove("on");
+  });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") lb.classList.remove("on"); });
+})();
+</script>
+</body>
+</html>
