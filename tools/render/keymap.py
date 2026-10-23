@@ -43,7 +43,7 @@ def label(b):
         return {"MB1": "L-click", "MB2": "R-click", "MB3": "M-click"}[p[1]]
     if k == "&bt":
         return "BT clr" if p[1] == "BT_CLR" else f"BT {int(p[2]) + 1}"
-    return {"&trans": "", "&caps_word": "Caps", "&bootloader": "Boot", "&sys_reset": "Reset", "&soft_off": "Off"}.get(k, k)
+    return {"&trans": "", "&caps_word": "Aa", "&bootloader": "Boot", "&sys_reset": "Reset", "&soft_off": "Off"}.get(k, k)
 
 
 def layers():

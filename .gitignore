@@ -9,3 +9,4 @@ print/keycaps/all-42-caps/
 print/keycaps-flat/
 # third-party switch model: drop your KS-33 STEP here for case/ks33_check.py
 ref/ks33.step
+_site/
