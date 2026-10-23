@@ -183,7 +183,7 @@ The keymap is in [`zmk-config/config/corne_lp.keymap`](zmk-config/config/corne_l
 
 ## 3D viewer
 
-**[Open the live 3D viewer](https://fbiopeningupp.github.io/corne-lp-handwired/viewer/)**, or download [`viewer/dist/index.html`](viewer/dist/index.html), a single page with the real case meshes inside, and open it in a browser. In the viewer you can:
+**[Open the live 3D viewer](https://fbiopeningupp.github.io/corne-lp-handwired/viewer/)**, or download [`viewer/dist/index.html`](viewer/dist/index.html), a single page with the real case meshes inside, and open it in a browser. (`viewer/index.html` is only the template that `viewer/build.py` fills in; opening it sends you to the built page.) In the viewer you can:
 
 - Spin it any way, including underneath.
 - Switch between **Built**, **Exploded**, **X-ray** and **Bag** views.

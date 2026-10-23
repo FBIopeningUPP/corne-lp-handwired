@@ -257,6 +257,9 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 <script>
 window.CORNE = /*DATA*/null;
+// This file is the template: build.py inlines the model data into dist/index.html. If someone opens the
+// template itself (a repo checkout, or Pages serving the repo root), send them to the built page.
+if (!window.CORNE) location.replace("dist/index.html");
 </script>
 <script>
 // If the 3D engine can't start (blocked CDN, no WebGL), say so instead of sitting on "Loading".
@@ -271,7 +274,7 @@ setTimeout(() => window.__corneFail("The 3D view didn\u2019t start. Your network
 <script>
 window.report = function (e) {
   const msg = String((e && (e.message || e.reason)) || e);
-  if (/ResizeObserver|^Script error/.test(msg)) return;      // browser noise, not ours
+  if (/ResizeObserver|^Script error|^redirecting/.test(msg)) return;      // browser noise, not ours
   const el = document.getElementById("errline"); if (!el || el.dataset.n > 2) return;
   el.dataset.n = (+el.dataset.n || 0) + 1;
   el.style.display = "block";
@@ -299,6 +302,7 @@ const { RoundedBoxGeometry } = lib.rb;
 const { toCreasedNormals } = lib.bu;
 
 const D = window.CORNE;
+if (!D) throw new Error("redirecting to the built viewer (dist/index.html)");
 const $ = (id) => document.getElementById(id);
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
