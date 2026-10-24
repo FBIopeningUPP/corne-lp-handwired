@@ -9,6 +9,7 @@ on:
       - "site/**"
       - "docs/**"
       - "viewer/dist/**"
+      - "flasher/dist/**"
       - "print/**"
       - ".github/workflows/pages.yml"
   workflow_dispatch:

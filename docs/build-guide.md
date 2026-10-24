@@ -120,6 +120,9 @@ Two open frames instead of a closed shell. Closed, it's 165 × 107 × **41.7 mm*
 
 ## 3. Flash first (before anything is closed up)
 
+**Easiest: the [web flasher](https://fbiopeningupp.github.io/corne-lp-handwired/flasher/)** (Chrome or Edge on a computer). Pick the firmware, put the board in bootloader mode, click **Flash** and choose the `NICENANO` drive: it writes the file for you, then tests all 42 keys and the trackpad. It also carries `settings_reset` for when the halves won't pair. Or do it by hand:
+
+
 - Plug in a SuperMini.
 - Short **RST to GND twice quickly** (or double-press the reset button once it's wired). A USB drive called `NICENANO` appears.
 - Drag [`firmware/corne_lp_left-nice_nano_v2.uf2`](../firmware) onto one board and `corne_lp_right-…uf2` onto the other.

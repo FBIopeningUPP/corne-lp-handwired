@@ -6,6 +6,7 @@
   _site/index.html                landing page (site/index.html)
   _site/images/                   renders, diagrams, keymap, Blip (docs/images, minus the style-option sheets)
   _site/viewer/index.html         the interactive 3D viewer (viewer/dist/index.html)
+  _site/flasher/index.html        web flasher + key tester (flasher/dist/index.html, firmware embedded)
   _site/build-guide/index.html    docs/build-guide.md as a web page
   _site/wiring_guide.pdf          docs/wiring_guide.pdf
   _site/corne-lp-print-files.zip  everything in print/
@@ -117,6 +118,7 @@ def main():
     shutil.copytree(os.path.join(ROOT, "docs", "images"), os.path.join(OUT, "images"),
                     ignore=shutil.ignore_patterns("style-options"))
     copy("viewer/dist/index.html", os.path.join(OUT, "viewer", "index.html"))
+    copy("flasher/dist/index.html", os.path.join(OUT, "flasher", "index.html"))
     copy("docs/wiring_guide.pdf", os.path.join(OUT, "wiring_guide.pdf"))
     build_guide()
     n, size = zip_print_files()

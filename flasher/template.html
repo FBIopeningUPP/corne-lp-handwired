@@ -1,0 +1,291 @@
+<title>Corne LP Flasher</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one working column — firmware cards, bootloader steps, flash bar, then the key tester. */
+:root {
+  --bg: #eef1f4; --panel: #ffffff; --ink: #141a21; --muted: #5b6672; --line: #d7dde4;
+  --copper: #c4441d; --copper-soft: #fbe5dc; --ok: #1f7a4d; --ok-soft: #dff2e8; --warn: #9a5b00; --warn-soft: #fbefd9;
+  --bad: #b3261e; --on-accent: #ffffff; --key: #f7f9fb; --key-on: #b45f25; --key-seen: #dff2e8;
+  --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --f-body: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f1418; --panel: #172027; --ink: #e8edf2; --muted: #93a1ad; --line: #2a3640;
+  --copper: #f06a43; --copper-soft: #3a1c13; --ok: #5fd39a; --ok-soft: #173327; --warn: #f0b45a; --warn-soft: #3a2b12;
+  --bad: #ff8a80; --on-accent: #1a0f07; --key: #1d2830; --key-on: #e08a4c; --key-seen: #173327; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0f1418; --panel: #172027; --ink: #e8edf2; --muted: #93a1ad; --line: #2a3640;
+  --copper: #f06a43; --copper-soft: #3a1c13; --ok: #5fd39a; --ok-soft: #173327; --warn: #f0b45a; --warn-soft: #3a2b12;
+  --bad: #ff8a80; --on-accent: #1a0f07; --key: #1d2830; --key-on: #e08a4c; --key-seen: #173327; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.55 var(--f-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 56px; }
+.wrap { max-width: 980px; margin: 0 auto; display: grid; gap: 22px; }
+header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 20px; }
+h1 { font: 800 34px/1.05 var(--f-display); letter-spacing: -0.02em; margin: 0; text-wrap: balance; }
+h1 span { color: var(--copper); }
+.sub { color: var(--muted); margin: 6px 0 0; max-width: 62ch; }
+.build { font: 12px var(--f-mono); color: var(--muted); text-align: right; }
+.build a { color: var(--copper); }
+h2 { font: 700 13px var(--f-display); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 10px; }
+section { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px; min-width: 0; }
+.fw { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.fw button { font: inherit; color: inherit; text-align: left; background: var(--key); border: 1.5px solid var(--line); border-radius: 10px;
+  padding: 12px 14px; cursor: pointer; display: grid; gap: 2px; }
+.fw button[aria-pressed="true"] { border-color: var(--copper); background: var(--copper-soft); }
+.fw b { font: 600 16px var(--f-display); }
+.fw small { color: var(--muted); font-size: 12.5px; }
+.fw code { font: 11.5px var(--f-mono); color: var(--muted); }
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
+.steps li { border-left: 3px solid var(--line); padding: 2px 0 2px 12px; min-width: 0; }
+.steps strong { display: block; font: 600 14.5px var(--f-display); margin-bottom: 2px; }
+.steps p { margin: 0; color: var(--muted); font-size: 13.5px; }
+.pad { font: 600 12px var(--f-mono); background: var(--copper-soft); color: var(--copper); padding: 1px 5px; border-radius: 4px; }
+.flashbar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 16px; }
+.btn { font: 600 15px var(--f-display); border: 0; border-radius: 9px; padding: 11px 18px; cursor: pointer; background: var(--copper); color: var(--on-accent); }
+.btn.ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+.btn:disabled { opacity: .5; cursor: default; }
+.btn:focus-visible, .fw button:focus-visible, #pad:focus-visible { outline: 3px solid var(--copper); outline-offset: 2px; }
+.status { flex: 1 1 260px; min-width: 0; font-size: 14px; border-radius: 8px; padding: 9px 12px; background: var(--key); border: 1px solid var(--line); }
+.status.ok { background: var(--ok-soft); border-color: transparent; color: var(--ok); }
+.status.warn { background: var(--warn-soft); border-color: transparent; color: var(--warn); }
+.status.bad { color: var(--bad); }
+.status code { font: 12px var(--f-mono); }
+.note { color: var(--muted); font-size: 13px; margin: 10px 0 0; }
+.tester { display: grid; gap: 12px; }
+.kb { width: 100%; overflow-x: auto; }
+.kb svg { display: block; width: 100%; min-width: 560px; height: auto; }
+.k rect { fill: var(--key); stroke: var(--line); stroke-width: .6; transition: fill .25s; }
+.k.seen rect { fill: var(--key-seen); }
+.k.on rect { fill: var(--key-on); transition: none; }
+.k text { fill: var(--ink); font: 600 4.6px var(--f-mono); text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+.k.on text { fill: var(--on-accent); }
+.k.layer text { fill: var(--copper); }
+.k.on.layer text { fill: var(--on-accent); }
+.meters { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.meter { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; min-width: 0; }
+.meter b { font: 800 22px var(--f-display); font-variant-numeric: tabular-nums; }
+.meter span { display: block; color: var(--muted); font-size: 12.5px; }
+.bar { height: 5px; border-radius: 3px; background: var(--line); margin-top: 6px; overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; background: var(--ok); transition: width .2s; }
+#pad { border: 1.5px dashed var(--line); border-radius: 10px; min-height: 110px; display: grid; place-items: center; color: var(--muted);
+  text-align: center; padding: 12px; user-select: none; touch-action: none; }
+#pad.live { border-color: var(--ok); color: var(--ok); }
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
+.last { font: 13px var(--f-mono); color: var(--muted); min-width: 0; }
+details { margin-top: 4px; }
+summary { cursor: pointer; font-weight: 600; }
+details ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); font-size: 13.5px; }
+@media (max-width: 760px) { .fw, .steps, .meters { grid-template-columns: 1fr; } h1 { font-size: 28px; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Corne LP <span>Flasher</span></h1>
+      <p class="sub">Write the ZMK firmware straight onto a SuperMini nRF52840 in bootloader mode, then press every key to check it.
+        Works in Chrome or Edge on a computer.</p>
+    </div>
+    <div class="build"><span id="build"></span><br><a href="../">← Corne LP home</a></div>
+  </header>
+
+  <section aria-labelledby="h-fw">
+    <h2 id="h-fw">1 · Choose the firmware</h2>
+    <div class="fw" id="fw"></div>
+  </section>
+
+  <section aria-labelledby="h-boot">
+    <h2 id="h-boot">2 · Put the board in bootloader mode</h2>
+    <ul class="steps">
+      <li><strong>Bare board</strong><p>Plug it in by USB-C, then short <span class="pad">RST</span> to <span class="pad">GND</span> twice, quickly, with tweezers.</p></li>
+      <li><strong>Built into the case</strong><p>Double-press the reset button through the pinhole in the base with a paperclip.</p></li>
+      <li><strong>Already running ZMK</strong><p>Hold NUM + SYM for the ADJ layer and press the bootloader key on that half.</p></li>
+    </ul>
+    <p class="note">A drive called <code>NICENANO</code> appears and the board's LED pulses. That is the drive you pick in step 3.</p>
+  </section>
+
+  <section aria-labelledby="h-flash">
+    <h2 id="h-flash">3 · Flash</h2>
+    <div class="flashbar">
+      <button class="btn" id="go">Flash left half</button>
+      <button class="btn ghost" id="dl">Download .uf2</button>
+      <div class="status" id="status" role="status" aria-live="polite">Pick the <code>NICENANO</code> drive when asked. Allow Chrome to edit it.</div>
+    </div>
+    <details>
+      <summary>Order for a new build, and what to do if the halves won't talk</summary>
+      <ul>
+        <li>Flash <b>left</b> onto one board and <b>right</b> onto the other. Mark them.</li>
+        <li>Power both at the same time: they pair with each other on their own, then the left half shows up in your computer's Bluetooth list as <b>Corne LP</b>.</li>
+        <li>Only left-half keys work in the tester? Flash <b>settings reset</b> onto both boards, then flash left and right again and power them up together.</li>
+        <li>No <code>NICENANO</code> drive? Try another cable (some are charge-only) and a quicker double tap.</li>
+      </ul>
+    </details>
+  </section>
+
+  <section aria-labelledby="h-test" class="tester">
+    <div class="row">
+      <h2 id="h-test" style="margin:0">4 · Test every key</h2>
+      <button class="btn ghost" id="clear">Clear</button>
+    </div>
+    <p class="note" style="margin:0">Connect over Bluetooth (or USB on the left half), click this page, and press each key once. Keys light up as they arrive.
+      NUM and SYM light when a key from their layer comes through.</p>
+    <div class="kb"><svg id="kb" viewBox="0 0 252 66" role="img" aria-label="Corne LP key tester"></svg></div>
+    <div class="meters">
+      <div class="meter"><b id="mL">0 / 21</b><span>left half</span><div class="bar"><i id="bL"></i></div></div>
+      <div class="meter"><b id="mR">0 / 21</b><span>right half (through the left half's link)</span><div class="bar"><i id="bR"></i></div></div>
+      <div class="meter"><b id="mP">—</b><span>trackpad (right half)</span><div class="bar"><i id="bP"></i></div></div>
+    </div>
+    <div id="pad" tabindex="0">Glide a finger on the trackpad over this box, then tap it.<br>NUM + F / D / S are left / middle / right click.</div>
+    <div class="last" id="last">Last key: none yet</div>
+  </section>
+</div>
+
+<script>
+const FW = /*FW*/null;            // {id: {name, file, b64, size, blocks, note}}
+const BUILD = /*BUILD*/null;
+const $ = (id) => document.getElementById(id);
+
+/* ---------- firmware cards ---------- */
+let chosen = "left";
+const bytes = {};
+function blob(id) {
+  if (!bytes[id]) { const s = atob(FW[id].b64); const u = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) u[i] = s.charCodeAt(i); bytes[id] = u; }
+  return new Blob([bytes[id]], { type: "application/octet-stream" });
+}
+function renderCards() {
+  $("fw").innerHTML = "";
+  for (const [id, f] of Object.entries(FW)) {
+    const b = document.createElement("button");
+    b.type = "button"; b.setAttribute("aria-pressed", String(id === chosen));
+    b.innerHTML = `<b>${f.name}</b><small>${f.note}</small><code>${f.file} · ${(f.size / 1024).toFixed(0)} KB</code>`;
+    b.addEventListener("click", () => { chosen = id; renderCards(); $("go").textContent = `Flash ${f.short}`; });
+    $("fw").appendChild(b);
+  }
+}
+renderCards();
+$("build").textContent = BUILD;
+
+/* ---------- flashing ---------- */
+const st = (cls, html) => { const s = $("status"); s.className = "status " + cls; s.innerHTML = html; };
+const canPick = "showDirectoryPicker" in window && window.isSecureContext;
+if (!canPick) {
+  st("warn", "This browser can't write to the drive directly. Use <b>Download .uf2</b>, then drag the file onto <code>NICENANO</code>. Chrome or Edge on a computer can do it in one click.");
+}
+$("go").disabled = !canPick;
+$("go").addEventListener("click", async () => {
+  const f = FW[chosen];
+  let dir;
+  try {
+    dir = await window.showDirectoryPicker({ id: "nicenano", mode: "readwrite" });
+  } catch (e) {
+    if (e.name === "AbortError") { st("", "No drive picked. Click Flash again when the <code>NICENANO</code> drive is showing."); return; }
+    st("bad", `Chrome wouldn't open that folder (${e.message}). Use <b>Download .uf2</b> and drag the file onto the drive instead.`); return;
+  }
+  // Is it the bootloader drive?
+  let info = "";
+  try { info = await (await (await dir.getFileHandle("INFO_UF2.TXT")).getFile()).text(); } catch (e) { info = ""; }
+  if (!info) { st("bad", `<code>${dir.name}</code> isn't a bootloader drive (no INFO_UF2.TXT). Put the board in bootloader mode and pick <code>NICENANO</code>.`); return; }
+  const board = (info.match(/Board-ID:\s*(.+)/) || [])[1] || "unknown board";
+  if (!/nRF52840/i.test(info)) { st("bad", `That drive belongs to <code>${board}</code>, not an nRF52840. Nothing was written.`); return; }
+  $("go").disabled = true;
+  st("", `Writing <code>${f.file}</code> to <code>${dir.name}</code> (${board})…`);
+  let wrote = false;
+  try {
+    const fh = await dir.getFileHandle("FLASH.UF2", { create: true });
+    const w = await fh.createWritable();
+    await w.write(blob(chosen)); wrote = true;
+    await w.close();
+    st("ok", `Flashed <b>${f.name}</b>. The board restarts and the drive disappears. ${f.after}`);
+  } catch (e) {
+    // the bootloader resets the board as soon as the last block lands, so finishing the file often fails: that's success
+    if (wrote) st("ok", `Flashed <b>${f.name}</b>: the board restarted before Chrome finished tidying up, which is normal. ${f.after}`);
+    else st("bad", `Writing failed (${e.message}). Check the cable, put the board back in bootloader mode and try again, or drag the downloaded file onto the drive.`);
+  } finally { $("go").disabled = false; }
+});
+$("dl").addEventListener("click", () => {
+  const f = FW[chosen];
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob(chosen)); a.download = f.file;
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+  st("", `Saved <code>${f.file}</code>. Drag it onto the <code>NICENANO</code> drive; the board restarts by itself.`);
+});
+
+/* ---------- key tester ---------- */
+// Corne LP key positions (mm, from case/layout.py), base layer legends and the browser key codes they send
+const POS = [[0,0,0,1,0,0],[0,-19.05,0,1,1,0],[0,-38.1,0,1,2,0],[19.05,0,0,1,0,1],[19.05,-19.05,0,1,1,1],[19.05,-38.1,0,1,2,1],[38.1,4.76,0,1,0,2],[38.1,-14.29,0,1,1,2],[38.1,-33.34,0,1,2,2],[57.15,7.14,0,1,0,3],[57.15,-11.91,0,1,1,3],[57.15,-30.96,0,1,2,3],[76.2,4.76,0,1,0,4],[76.2,-14.29,0,1,1,4],[76.2,-33.34,0,1,2,4],[95.25,2.38,0,1,0,5],[95.25,-16.67,0,1,1,5],[95.25,-35.72,0,1,2,5],[66.67,-55.72,0,1,3,3],[86.68,-57.25,-12,1,3,4],[108.2,-61.44,-26,1.5,3,5]];
+const LEFT = [["TAB","Q","W","E","R","T"],["CTRL","A","S","D","F","G"],["SHFT","Z","X","C","V","B"],[null,null,null,"GUI","NUM","SPC"]];
+const RIGHT = [["BKSP","P","O","I","U","Y"],["'",";","L","K","J","H"],["ESC","/",".",",","M","N"],[null,null,null,"ALT","SYM","ENT"]];
+const CODES = { TAB:"Tab", CTRL:"ControlLeft", SHFT:"ShiftLeft", GUI:"MetaLeft", SPC:"Space", BKSP:"Backspace", "'":"Quote", ";":"Semicolon",
+  ESC:"Escape", "/":"Slash", ".":"Period", ",":"Comma", ALT:"AltRight", ENT:"Enter" };
+const codeOf = (l) => CODES[l] || ("Key" + l);
+const NUM_CODES = /^(Digit\d|Arrow|Page|Home|End|Media|Audio)/;     // only reachable through NUM
+const SYM_CODES = /^(Minus|Equal|BracketLeft|BracketRight|Backslash|Backquote)$/;   // only through SYM
+const keys = {};                                                    // code -> {el, half}
+const NS = "http://www.w3.org/2000/svg";
+function drawKeys() {
+  const svg = $("kb"); svg.innerHTML = "";
+  const S = 0.62, X0 = 6, Y0 = 12, RX = 246;                       // scale mm -> viewBox units
+  for (const half of ["L", "R"]) {
+    for (const [x, y, r, wu, row, col] of POS) {
+      const lab = (half === "L" ? LEFT : RIGHT)[row][col];
+      if (!lab) continue;
+      const cx = half === "L" ? X0 + x * S + 6 : RX - x * S - 6, cy = Y0 - y * S, rot = half === "L" ? -r : r;
+      const w = 17.4 * S, h = 17.4 * S * wu;
+      const g = document.createElementNS(NS, "g"); g.setAttribute("class", "k" + (lab === "NUM" || lab === "SYM" ? " layer" : ""));
+      g.setAttribute("transform", `translate(${cx.toFixed(2)} ${cy.toFixed(2)}) rotate(${rot})`);
+      const re = document.createElementNS(NS, "rect");
+      Object.entries({ x: -w / 2, y: -h / 2, width: w, height: h, rx: 1.6 }).forEach(([a, v]) => re.setAttribute(a, v));
+      const t = document.createElementNS(NS, "text"); t.textContent = lab;
+      g.append(re, t); svg.appendChild(g);
+      const code = lab === "NUM" ? "@NUM" : lab === "SYM" ? "@SYM" : codeOf(lab);
+      keys[code] = { el: g, half };
+    }
+  }
+}
+drawKeys();
+const seen = new Set();
+function mark(code) {
+  const k = keys[code]; if (!k) return;
+  k.el.classList.add("on", "seen"); seen.add(code);
+  clearTimeout(k.t); k.t = setTimeout(() => k.el.classList.remove("on"), 220);
+  for (const h of ["L", "R"]) {
+    const n = [...seen].filter((c) => keys[c].half === h).length;
+    $("m" + h).textContent = `${n} / 21`; $("b" + h).style.width = `${(n / 21) * 100}%`;
+  }
+}
+addEventListener("keydown", (e) => {
+  if (e.target && /INPUT|TEXTAREA/.test(e.target.tagName)) return;
+  if (e.code === "Tab" || e.code === "Space" || e.code === "Slash" || e.code === "Quote" || e.code === "Backspace" || NUM_CODES.test(e.code)) e.preventDefault();
+  let code = e.code;
+  if (code === "ControlRight") code = "ControlLeft";
+  if (code === "ShiftRight") code = "ShiftLeft";
+  if (code === "AltLeft" || code === "MetaRight" || code === "OSLeft") code = code === "AltLeft" ? "AltRight" : "MetaLeft";
+  mark(code);
+  if (NUM_CODES.test(e.code)) mark("@NUM");
+  if (SYM_CODES.test(e.code)) mark("@SYM");
+  $("last").textContent = `Last key: ${e.key === " " ? "Space" : e.key}  (${e.code})`;
+});
+// trackpad box
+let moved = 0, clicks = new Set();
+const pad = $("pad");
+function padMeter() {
+  const parts = (moved > 30 ? 1 : 0) + clicks.size;
+  $("mP").textContent = moved > 30 ? `moves · ${clicks.size} / 3 clicks` : "—";
+  $("bP").style.width = `${(parts / 4) * 100}%`;
+}
+pad.addEventListener("pointermove", (e) => { if (e.pointerType !== "mouse") return; moved += Math.abs(e.movementX) + Math.abs(e.movementY); pad.classList.toggle("live", moved > 30); padMeter(); });
+pad.addEventListener("pointerdown", (e) => { clicks.add(e.button); pad.textContent = ["Left", "Middle", "Right"][e.button] + " click received"; padMeter(); });
+pad.addEventListener("contextmenu", (e) => e.preventDefault());
+$("clear").addEventListener("click", () => {
+  seen.clear(); moved = 0; clicks.clear(); pad.classList.remove("live");
+  pad.innerHTML = "Glide a finger on the trackpad over this box, then tap it.<br>NUM + F / D / S are left / middle / right click.";
+  document.querySelectorAll(".k").forEach((k) => k.classList.remove("seen", "on"));
+  for (const h of ["L", "R"]) { $("m" + h).textContent = "0 / 21"; $("b" + h).style.width = "0"; }
+  padMeter(); $("last").textContent = "Last key: none yet";
+});
+</script>

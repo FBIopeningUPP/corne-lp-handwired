@@ -137,7 +137,7 @@ The full step-by-step is in **[docs/build-guide.md](docs/build-guide.md)**. In s
 1. **Buy the parts:** all off the shelf. See the [parts list](docs/build-guide.md#1-parts).
 2. **Print the test kit** in [`print/test-kit/`](print/test-kit) and tune `HOLE`, `MAG_D` or `INSERT_HOLE` if needed.
 3. **Print** the shells, bases and keycaps in [`print/`](print). The keyboard needs no supports.
-4. **Flash** the pre-built firmware in [`firmware/`](firmware) before closing anything.
+4. **Flash** the pre-built firmware before closing anything: the [web flasher](https://fbiopeningupp.github.io/corne-lp-handwired/flasher/) does it from Chrome, or drag the files in [`firmware/`](firmware).
 5. **Wire** the matrix by hand. [`docs/wiring_guide.pdf`](docs/wiring_guide.pdf) has every half and pin.
 6. **Assemble:** battery, SuperMini, OLED, switch, trackpad, then 7 screws per half.
 
@@ -170,7 +170,8 @@ The keymap is in [`zmk-config/config/corne_lp.keymap`](zmk-config/config/corne_l
 │   ├── keycaps/        all 42 CLP caps (KS-33 version) on one OrcaSlicer plate
 │   └── carry-case/     click-shut carry case, or the open bumper
 ├── cad/              STEP solids for Fusion 360, Onshape, FreeCAD, SolidWorks
-├── firmware/         pre-built .uf2 for each half
+├── firmware/         pre-built .uf2 for each half + settings_reset
+├── flasher/          web flasher + key tester (python3 flasher/build.py)
 ├── zmk-config/       ZMK config: keymap, corne_lp shield, Blip's status screen
 ├── case/             Python that generates everything (parameters at the top of case.py)
 ├── keycaps/          CLP keycap source models: stock (clp/) and KS-33 versions (clp_ks33/)
